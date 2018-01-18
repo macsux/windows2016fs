@@ -22,17 +22,20 @@ type LayerManager interface {
 type Manager struct {
 	srcDir       string
 	manifest     v1.Manifest
+	config       v1.Image
 	layerManager LayerManager
 	output       io.Writer
 }
 
-func NewManager(srcDir string, manifest v1.Manifest, layerManager LayerManager, output io.Writer) *Manager {
+func NewManager(srcDir string, layerManager LayerManager, output io.Writer) *Manager {
 	return &Manager{
 		srcDir:       srcDir,
-		manifest:     manifest,
 		layerManager: layerManager,
 		output:       output,
 	}
+}
+
+func (m *Manager) LoadMetadata() error {
 }
 
 func (m *Manager) Extract() (string, error) {
